@@ -2,13 +2,18 @@ package com.ltp.gradesubmission.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.ltp.gradesubmission.Constants;
 import com.ltp.gradesubmission.Grade;
 import com.ltp.gradesubmission.repository.GradeRepository;
 
+@Component //register this component as bean. springboot will create object of this GradeService class and store it in the spring container 
 public class GradeService {
     
-    GradeRepository gradeRepository = new GradeRepository();
+    @Autowired  //wire bean into service class
+    GradeRepository gradeRepository;
 
     public Grade getGrade(int index) {
         return gradeRepository.getGrade(index);
