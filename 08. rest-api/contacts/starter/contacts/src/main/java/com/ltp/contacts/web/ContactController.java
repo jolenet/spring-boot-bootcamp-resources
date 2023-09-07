@@ -1,11 +1,13 @@
 package com.ltp.contacts.web;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody; //deserialises the json object into a java object
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,12 @@ public class ContactController {
     public ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact){
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/contact/{id}")
+    public ResponseEntity<Contact> updateContact(@PathVariable String id, @RequestBody Contact contact){
+        contactService.updateContact(id, contact);
+        return new ResponseEntity<Contact>(contactService.getContactById(id), HttpStatus.OK);
     }
 
 }
